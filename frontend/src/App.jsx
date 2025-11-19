@@ -5,6 +5,7 @@ function App() {
   const [text, setText] = useState("");
   const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   const summarizeText = async () => {
     if (!text.trim()) return;
@@ -29,19 +30,40 @@ function App() {
     setLoading(false);
   };
 
+  const clearText = () => {
+    setText("");
+    setSummary("");
+  };
+
   return (
-    <div className="app-container">
+    <div className={`app-container ${darkMode ? "dark" : ""}`}>
+      {/* Dark/Light Toggle */}
+      <button
+        className="toggle-btn fixed-toggle"
+        onClick={() => setDarkMode(!darkMode)}
+      >
+        {darkMode ? "Light Mode" : "Dark Mode"}
+      </button>
+
       <div className="content-box">
         <h1 className="title">AI Text Summarizer</h1>
+
         <textarea
           className="input-box"
           placeholder="Paste your text here..."
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <button className="submit-btn" onClick={summarizeText}>
-          {loading ? "Summarizing..." : "Summarize"}
-        </button>
+
+        <div className="buttons">
+          <button className="submit-btn" onClick={summarizeText}>
+            {loading ? "Summarizing..." : "Summarize"}
+          </button>
+          <button className="clear-btn" onClick={clearText}>
+            Clear
+          </button>
+        </div>
+
         {summary && (
           <div className="summary-box">
             <h2>Summary:</h2>

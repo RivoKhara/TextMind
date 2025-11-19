@@ -1,12 +1,10 @@
-/* Full-screen dark modern UI with subtle animations */
-
 body, html, #root {
   margin: 0;
   padding: 0;
   height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #1e1e1e;
-  color: #ffffff;
+  background-color: #f0f0f0;
+  color: #000000;
 }
 
 .app-container {
@@ -14,26 +12,43 @@ body, html, #root {
   justify-content: center;
   align-items: center;
   height: 100%;
-  animation: fadeIn 1s ease-in;
+  transition: background 0.3s, color 0.3s;
+  position: relative;
+}
+
+/* Dark mode */
+.app-container.dark {
+  background-color: #1e1e1e;
+  color: #ffffff;
 }
 
 .content-box {
-  background: #2c2c2c;
+  background: #ffffff;
   padding: 40px;
   border-radius: 20px;
   width: 70%;
   max-width: 900px;
-  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+  box-shadow: 0 0 40px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
   gap: 20px;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Dark mode content box */
+.app-container.dark .content-box {
+  background: #2c2c2c;
 }
 
 .title {
   text-align: center;
   font-size: 2.5rem;
-  color: #ffffff;
   margin-bottom: 10px;
+}
+
+/* Dark mode title */
+.app-container.dark .title {
+  color: #ffffff;
 }
 
 .input-box {
@@ -41,12 +56,18 @@ body, html, #root {
   height: 150px;
   padding: 15px;
   border-radius: 15px;
-  border: none;
+  border: 1px solid #ccc;
   resize: none;
   font-size: 1rem;
+  background-color: #ffffff;
+  color: #000000;
+  transition: all 0.3s ease;
+}
+
+.app-container.dark .input-box {
   background-color: #3a3a3a;
   color: #ffffff;
-  transition: all 0.3s ease;
+  border: 1px solid #555;
 }
 
 .input-box:focus {
@@ -54,15 +75,24 @@ body, html, #root {
   box-shadow: 0 0 15px #0077ff;
 }
 
-.submit-btn {
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.submit-btn, .clear-btn, .toggle-btn {
   padding: 15px;
   border-radius: 15px;
   border: none;
-  background: #0077ff;
-  color: #ffffff;
   font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+.submit-btn {
+  background: #0077ff;
+  color: #ffffff;
 }
 
 .submit-btn:hover {
@@ -70,15 +100,62 @@ body, html, #root {
   transform: scale(1.05);
 }
 
+.clear-btn {
+  background: #e0e0e0;
+  color: #000;
+}
+
+.clear-btn:hover {
+  background: #c0c0c0;
+}
+
+.app-container.dark .clear-btn {
+  background: #555;
+  color: #fff;
+}
+
+.app-container.dark .clear-btn:hover {
+  background: #777;
+}
+
+/* Fixed toggle button top-left */
+.fixed-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: #555;
+  color: #fff;
+}
+
+.fixed-toggle:hover {
+  background: #333;
+}
+
+.app-container.dark .fixed-toggle {
+  background: #999;
+  color: #000;
+}
+
 .summary-box {
-  background: #3a3a3a;
+  background: #f0f0f0;
   padding: 20px;
   border-radius: 15px;
   animation: fadeInUp 0.5s ease;
+  transition: background 0.3s, color 0.3s;
+}
+
+.app-container.dark .summary-box {
+  background: #3a3a3a;
+  color: #ffffff;
 }
 
 .summary-box h2 {
   margin-top: 0;
+  color: #0077ff;
+}
+
+.app-container.dark .summary-box h2 {
   color: #00d1ff;
 }
 
@@ -88,11 +165,6 @@ body, html, #root {
 }
 
 /* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -113,7 +185,8 @@ body, html, #root {
     height: 120px;
   }
 
-  .submit-btn {
+  .submit-btn, .clear-btn, .toggle-btn {
     font-size: 1rem;
+    padding: 10px;
   }
 }
